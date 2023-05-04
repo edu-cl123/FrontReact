@@ -1,23 +1,21 @@
-import logo from './logo.svg';
 import './App.css';
+
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import MostrarPeliculas from './components/MostrarPeliculas';
+import EditarPeliculas from './components/EditarPeliculas';
+import CrearPeliculas from './components/CrearPeliculas';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <BrowserRouter>
+        <Routes>
+          <Route path='/' element={<MostrarPeliculas />} />
+          {/* <Route path='/create' element={<CrearPeliculas />} /> */}
+          {/* <Route path='/edit/:id' element={<EditarPeliculas />} /> */}
+        </Routes>
+      </BrowserRouter>
+
     </div>
   );
 }

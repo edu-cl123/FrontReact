@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
+import Nav from 'react-bootstrap/Nav';
+import Navbar from 'react-bootstrap/Navbar';
+
 import { Link, Navigate } from "react-router-dom"
 import { useNavigate } from 'react-router-dom';
 
@@ -17,7 +20,7 @@ const MostrarPeliculas = () => {
 
         comprobarLogin()
         getAllPeliculas()
-    },[])
+    }, [])
 
     const getAllPeliculas = async () => {
 
@@ -27,9 +30,9 @@ const MostrarPeliculas = () => {
     }
 
     const comprobarLogin = async () => {
-        if (!localStorage.getItem("usuario")  && !localStorage.getItem("contrasena") ) {
+        if (!localStorage.getItem("usuario") && !localStorage.getItem("contrasena")) {
             navigate('/')
-        }else{
+        } else {
             setusuario(localStorage.getItem("usuario"))
         }
     }
@@ -40,11 +43,29 @@ const MostrarPeliculas = () => {
         getAllPeliculas()
     }
 
-    const crearPeliculas =async()=>{
+    const crearPeliculas = async () => {
         navigate(`/create/${usuario}`)
+    }
+
+    const Mostrar = async () => {
+        navigate(`/peliculas`)
+    }
+
+    const CerrarSesion = async () => {
+        localStorage.clear()
+        navigate(`/`)
     }
     return (
         <div>
+            <Navbar bg="dark" variant="dark">
+                    <Navbar.Brand href="#home">Fimoteca</Navbar.Brand>
+                    <Nav className="me-auto">
+                        <Nav.Link  onClick={() => crearPeliculas()}>Crear película</Nav.Link>
+                        <Nav.Link onClick={() => Mostrar()}>Inicio</Nav.Link>
+                        <Nav.Link onClick={() => CerrarSesion()}>Cerrar sesión</Nav.Link>
+                    </Nav>
+            </Navbar>
+
 
             <div className='d-grid gap-2'>
                 <button onClick={() => crearPeliculas()} className='btn btn-success btn-lg mt-2 mb-2 text-white'>Añadir peliculas</button>

@@ -2,6 +2,8 @@ import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import '../CustomCss/prueba.css';
+import Nav from 'react-bootstrap/Nav';
+import Navbar from 'react-bootstrap/Navbar';
 
 const endpoint = 'http://localhost:8000/api/pelicula/'
 
@@ -30,6 +32,15 @@ const EditProduct = () => {
         navigate('/peliculas')
     }
 
+    const Mostrar = async () => {
+        navigate(`/peliculas`)
+    }
+
+    const CerrarSesion = async () => {
+        localStorage.clear()
+        navigate(`/`)
+    }
+
     useEffect(() => {
         const getPeliculaById = async () => {
             const response = await axios.get(`${endpoint}${id}`)
@@ -46,6 +57,13 @@ const EditProduct = () => {
 
     return (
         <div   >
+            <Navbar bg="dark" variant="dark">
+                <Navbar.Brand href="#home">Fimoteca</Navbar.Brand>
+                <Nav className="me-auto">
+                    <Nav.Link onClick={() => Mostrar()}>Inicio</Nav.Link>
+                    <Nav.Link onClick={() => CerrarSesion()}>Cerrar sesión</Nav.Link>
+                </Nav>
+            </Navbar>
             <div className="container">
                 <form onSubmit={update}>
                     <div className="row">

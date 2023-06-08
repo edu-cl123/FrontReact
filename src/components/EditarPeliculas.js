@@ -89,7 +89,10 @@ const EditProduct = () => {
                             <input value={guion}
                                 onChange={(e) => setGuion(e.target.value)} type="text" placeholder="Guión" />
                         </div>
-                        <button type='submit' className="Button ">Editar pelicula</button>
+                        <div className='d-grid gap-2'>
+                            <button type='submit' className='btn btn-primary btn-lg mt-2 mb-2 text-white'>Editar pelicula</button>
+
+                        </div>
                     </div>
 
                 </form>

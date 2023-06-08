@@ -90,7 +90,10 @@ const EditProduct = () => {
                             <label> {guion}</label>
                         </div>
 
-                        <button type='submit' className="editarButton ">Volver inicio</button>
+                        <div className='d-grid gap-2'>
+                            <button type='submit' className='btn btn-primary btn-lg mt-2 mb-2 text-white'>Volver inicio</button>
+
+                        </div>
                     </div>
 
                 </form>

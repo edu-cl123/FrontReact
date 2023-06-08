@@ -1,8 +1,12 @@
-import React, { useState } from 'react'
+import React, { useState,useEffect } from 'react'
 import axios from 'axios'
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
+
+import '../CustomCss/prueba.css';
 
 const endpoint = "http://localhost:8000/api/pelicula"
+const endpoint1 = 'http://localhost:8000/api/usuarioByuser/'
+
 
 const CrearPeliculas = () => {
 
@@ -14,67 +18,61 @@ const CrearPeliculas = () => {
     const [id_usuario, setId_usuario] = useState(1)
 
     const navigate = useNavigate()
+    
 
     const store = async (e) => {
         e.preventDefault()
+
         await axios.post(endpoint, { nombre: nombre, director: director, genero: genero, ano: ano, guion: guion, id_usuario: id_usuario })
-        navigate('/')
+        
+        navigate('/peliculas')
+    }
+
+    useEffect(() => {
+ 
+        getidUser()
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    },[])
+
+    const getidUser = async () => {
+        const user=localStorage.getItem("usuario")
+        const username = await axios.get(`${endpoint1}${user}`)
+        console.log(username)
+        setId_usuario(username.data[0].id)
     }
 
     return (
-        <div className='card' >
-            <h3>Create Product</h3>
-            <form onSubmit={store}>
-                <div className='mb-3'>
-                    <label className='form-label'>Nombre</label>
-                    <input
-                        value={nombre}
-                        onChange={(e) => setNombre(e.target.value)}
-                        type='text'
-                        className='form-control'
-                    />
-                </div>
-                <div className='mb-3'>
-                    <label className='form-label'>Director</label>
-                    <input
-                        value={director}
-                        onChange={(e) => setDirector(e.target.value)}
-                        type='text'
-                        className='form-control'
-                    />
-                </div>
-                <div className='mb-3'>
-                    <label className='form-label'>Genero</label>
-                    <input
-                        value={genero}
-                        onChange={(e) => setGenero(e.target.value)}
-                        type='text'
-                        className='form-control'
-                    />
-                </div>
+        <div className="fondo">
 
-                <div className='mb-3'>
-                    <label className='form-label'>Año de creación</label>
-                    <input
-                        value={ano}
-                        onChange={(e) => setAno(e.target.value)}
-                        type='text'
-                        className='form-control'
-                    />
-                </div>
+            <div className="container">
+                <form onSubmit={store}>
+                    <h4>Crear pelicula</h4>
+                    <div className="input-group ">
+                        <input value={nombre}
+                            onChange={(e) => setNombre(e.target.value)} type="text" placeholder="Nombre" />
+                    </div>
 
-                <div className='mb-3'>
-                    <label className='form-label'>Nombre Guionista</label>
-                    <input
-                        value={guion}
-                        onChange={(e) => setGuion(e.target.value)}
-                        type='text'
-                        className='form-control'
-                    />
-                </div>
-                <button type='submit' className='btn btn-primary'>Guardar pelicula</button>
-            </form>
+                    <div className="input-group ">
+                        <input value={director}
+                            onChange={(e) => setDirector(e.target.value)} type="text" placeholder="Director" />
+                    </div>
+                    <div className="input-group">
+                        <input value={genero}
+                            onChange={(e) => setGenero(e.target.value)} type="text" placeholder="Genero" />
+                    </div>
+                    <div className="input-group">
+                        <input value={ano}
+                            onChange={(e) => setAno(e.target.value)} type="text" placeholder="Año de creación" />
+                    </div>
+                    <div className="input-group">
+                        <input value={guion}
+                            onChange={(e) => setGuion(e.target.value)} type="text" placeholder="Guión" />
+                    </div>
+                    <button type='submit' className='btn btn-primary'>Guardar pelicula</button>
+                </form>
+            </div>
         </div>
+
     )
 }
 

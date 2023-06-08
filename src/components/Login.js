@@ -20,19 +20,22 @@ const EditProduct = () => {
         e.preventDefault()
         if (usuario != "" && contrasena != "") {
             const username = await axios.get(`${endpoint}${usuario}`)
-            console.log(username.data[0].contrasena)
+            console.log(username)            
             if (username.data[0].contrasena == contrasena) {
-                 navigate('/peliculas')
+                localStorage.setItem("contrasena",contrasena)
+                localStorage.setItem("usuario",usuario)
+
+                navigate('/peliculas')
             }
 
         }
     }
 
     return (
-        <div   >
+        <div className="fondoLogin" >
 
-            <div class="form">
-                <div class="title">Bienvenido</div>
+            <div className="form">
+                <div className="title">Bienvenido</div>
                 <div className="input-container ic1">
                     <input value={usuario}
                         onChange={(e) => setusuario(e.target.value)} id="firstname" className="input" type="text" placeholder="Usuario " />
@@ -41,12 +44,12 @@ const EditProduct = () => {
                     <input value={contrasena}
                         onChange={(e) => setcontrasena(e.target.value)} id="lastname" className="input" type="password" placeholder="Contraseña" />
                 </div>
-                <button onClick={login} type="text" class="submit">Iniciar sesión</button>
+                <button onClick={login} type="text" className="submit">Iniciar sesión</button>
 
-                <button onClick={registro} type="text" class="submit">Registrar cuenta</button>
+                <button onClick={registro} type="text" className="submit">Registrar cuenta</button>
+
 
             </div>
-
         </div>
     )
 }

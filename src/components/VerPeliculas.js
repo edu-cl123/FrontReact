@@ -1,7 +1,8 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import '../CustomCss/prueba.css';
+import { IconName } from "react-icons/fa";
+
 
 const endpoint = 'http://localhost:8000/api/pelicula/'
 
@@ -17,16 +18,7 @@ const EditProduct = () => {
 
     const navigate = useNavigate()
 
-    const update = async (e) => {
-        e.preventDefault()
-        await axios.put(`${endpoint}${id}`, {
-            nombre: nombre,
-            director: director,
-            genero: genero,
-            ano: ano,
-            guion: guion,
-            id_usuario: id_usuario
-        })
+    const inicio = async (e) => {
         navigate('/peliculas')
     }
 
@@ -47,31 +39,40 @@ const EditProduct = () => {
     return (
         <div   >
             <div className="container">
-                <form onSubmit={update}>
+                <form onSubmit={inicio}>
                     <div className="row">
-                        <h4>Editar peliculas</h4>
+                        <h4>Información peliculas</h4>
                         <div className="input-group ">
-                            <input value={nombre}
-                                onChange={(e) => setNombre(e.target.value)} type="text" placeholder="Nombre" />
+                        <label> Nombre película: </label>
+
+                            <label> {nombre}</label>
                         </div>
 
                         <div className="input-group ">
-                            <input value={director}
-                                onChange={(e) => setDirector(e.target.value)} type="text" placeholder="Director" />
+                        <label> Director de la película: </label>
+
+                        <label> {director}</label>
+
                         </div>
                         <div className="input-group">
-                            <input value={genero}
-                                onChange={(e) => setGenero(e.target.value)} type="text" placeholder="Genero" />
+                        <label> Genero de la película: </label>
+
+                        <label> {genero}</label>
+
                         </div>
                         <div className="input-group">
-                            <input value={ano}
-                                onChange={(e) => setAno(e.target.value)} type="text" placeholder="Año de creación" />
+                        <label>Año publicación de la película: </label>
+
+                        <label> {ano}</label>
+
                         </div>
                         <div className="input-group">
-                            <input value={guion}
-                                onChange={(e) => setGuion(e.target.value)} type="text" placeholder="Guión" />
+                        <label> Guiónista de la película: </label>
+
+                        <label> {guion}</label>
                         </div>
-                        <button type='submit' className="Button ">Editar pelicula</button>
+  
+                        <button type='submit' className="editarButton ">Volver inicio</button>
                     </div>
 
                 </form>

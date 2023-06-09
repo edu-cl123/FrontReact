@@ -20,23 +20,26 @@ import MenuItem from '@mui/material/MenuItem';
 
 const endpoint = "http://localhost:8000/api"
 const MostrarPeliculas = () => {
+    //Variable usadas
     const [peliculas, setPeliculas] = useState([{ id: 0, nombre: '', director: 'Example', genero: 'Example', ano: 'Example' }])
     const [usuario, setusuario] = useState("")
     const [tablaPeliculas, settablaPeliculas] = useState([]);
     const [busqueda, setBusqueda] = useState("");
     const [tipoBusqueda, setTipoBusqueda] = useState("");
-
     const navigate = useNavigate()
 
+    //Funciones para el buscador por titulo
     const handleChange = e => {
         setBusqueda(e.target.value);
         filtrar(e.target.value);
     }
 
+    //Funcion para el buscador por Director 
     const handleChange2 = e => {
         setTipoBusqueda(e.target.value)
     }
 
+    //Funcion que nos permite buscar dependiendo del valor del input el cual lo devuelve la coincidencias
     const filtrar = (terminoBusqueda) => {
         if (tipoBusqueda == "1") {
             var resultadosBusqueda = tablaPeliculas.filter((elemento) => {
@@ -55,6 +58,7 @@ const MostrarPeliculas = () => {
         setPeliculas(resultadosBusqueda);
     }
 
+    //Definición de las columnas 
     const columns = [
         { field: 'nombre', headerName: 'Nombre', width: 130 },
         { field: 'director', headerName: 'Director', width: 130 },
@@ -89,6 +93,7 @@ const MostrarPeliculas = () => {
                 };
 
                 return (
+                    //Acciones qdisponibles para usar en cada elementos 
                     <Stack direction="row" spacing={2}>
                         <Button variant="outlined" color="error" size="small" onClick={info}>Ver</Button>
                         <Button variant="outlined" color="warning" size="small" onClick={editarr}>Editar</Button>
@@ -100,13 +105,14 @@ const MostrarPeliculas = () => {
         }
     ];
 
-
+//Funciones al entrar en la pagina 
     useEffect(() => {
 
         comprobarLogin()
         getAllPeliculas()
     }, [])
 
+    //Obtenemos todas las peliculas
     const getAllPeliculas = async () => {
 
         const reponse = await axios.get(`${endpoint}/peliculas`)
@@ -115,6 +121,7 @@ const MostrarPeliculas = () => {
 
     }
 
+    //Comprobamos el login
     const comprobarLogin = async () => {
         if (!localStorage.getItem("usuario") && !localStorage.getItem("contrasena")) {
             navigate('/')
@@ -123,14 +130,16 @@ const MostrarPeliculas = () => {
         }
     }
 
-
+//Navbar y elementos
     const crearPeliculas = async () => {
         navigate(`/create/${usuario}`)
     }
+//Navbar y elementos
 
     const Mostrar = async () => {
         navigate(`/peliculas`)
     }
+//Navbar y elementos
 
     const CerrarSesion = async () => {
         localStorage.clear()

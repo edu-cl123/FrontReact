@@ -10,7 +10,7 @@ import Login from './components/Login';
 import Register from './components/Register';
 import SinUsuario from  './components/SinUsuario';
 
-
+//Usamos dependiendo de las routas sus diferente controladores por eso en esta pagina solo necesitamos las routas de donde vamos a usar cada una 
 function App() {
   return (
     <div>

@@ -11,7 +11,7 @@ const endpoint1 = 'http://localhost:8000/api/usuarioByuser/'
 
 
 const CrearPeliculas = () => {
-
+    //Variables usadas 
     const [nombre, setNombre] = useState('')
     const [director, setDirector] = useState('')
     const [genero, setGenero] = useState('')
@@ -20,10 +20,10 @@ const CrearPeliculas = () => {
     const [id_usuario, setId_usuario] = useState(1)
     const [usuario, setusuario] = useState("")
 
-
+    //Propiedad que nos permite la navegación
     const navigate = useNavigate()
 
-
+    //Guardar las películas
     const store = async (e) => {
         e.preventDefault()
 
@@ -32,15 +32,18 @@ const CrearPeliculas = () => {
         navigate('/peliculas')
     }
 
+    //Propiedades del toolbar de navegacion 
     const Mostrar = async () => {
         navigate(`/peliculas`)
     }
+    //Propiedades del toolbar de navegacion 
 
     const CerrarSesion = async () => {
         localStorage.clear()
         navigate(`/`)
     }
 
+    //Funciones que se ejecutan al iniciar la pantall
     useEffect(() => {
 
         comprobarLogin()
@@ -49,6 +52,7 @@ const CrearPeliculas = () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
+    //Obtenemos el id de un usario el cual esta guardado en el local storage
     const getidUser = async () => {
         const user = localStorage.getItem("usuario")
         const username = await axios.get(`${endpoint1}${user}`)
@@ -56,6 +60,7 @@ const CrearPeliculas = () => {
         setId_usuario(username.data[0].id)
     }
 
+    //Comprobamos que tenga un usuario iniciado sesion para en caso de no estar que vuelva al login
     const comprobarLogin = async () => {
         if (!localStorage.getItem("usuario") && !localStorage.getItem("contrasena")) {
             navigate('/')
@@ -65,7 +70,7 @@ const CrearPeliculas = () => {
     }
 
 
-
+    //Html donde tenemos una barra de navegación y una formulario para completar los diferentes datos
     return (
         <div className="fondo">
             <Navbar bg="dark" variant="dark">

@@ -8,7 +8,8 @@ import Navbar from 'react-bootstrap/Navbar';
 
 const endpoint = 'http://localhost:8000/api/pelicula/'
 
-const EditProduct = () => {
+const VerPeliculas = () => {
+    //Variables usadas
     const [nombre, setNombre] = useState('')
     const [director, setDirector] = useState('')
     const [genero, setGenero] = useState('')
@@ -17,15 +18,17 @@ const EditProduct = () => {
     const [id_usuario, setId_usuario] = useState(1)
     const [usuario, setusuario] = useState("")
 
-
+    //Id de la peliculas que queremos ver la informacion, ese id se obtiene por la barra de navegación
     const { id } = useParams()
 
     const navigate = useNavigate()
 
+    //Propiedad del navbar
     const inicio = async (e) => {
         navigate('/peliculas')
     }
 
+    //Funciones que se ejecutan al entrar en la pantalla para poder setear el formulario
     useEffect(() => {
         const getPeliculaById = async () => {
             const response = await axios.get(`${endpoint}${id}`)
@@ -40,16 +43,18 @@ const EditProduct = () => {
         getPeliculaById()
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
+    //Propiedad del navbar
 
     const Mostrar = async () => {
         navigate(`/peliculas`)
     }
+    //Propiedad del navbar
 
     const CerrarSesion = async () => {
         localStorage.clear()
         navigate(`/`)
     }
-
+    //Comprobamos que un usuario tenga iniciado sesión
     const comprobarLogin = async () => {
         if (!localStorage.getItem("usuario") && !localStorage.getItem("contrasena")) {
             navigate('/')
@@ -107,4 +112,4 @@ const EditProduct = () => {
     )
 }
 
-export default EditProduct
+export default VerPeliculas

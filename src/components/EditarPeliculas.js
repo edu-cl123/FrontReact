@@ -7,7 +7,8 @@ import Navbar from 'react-bootstrap/Navbar';
 
 const endpoint = 'http://localhost:8000/api/pelicula/'
 
-const EditProduct = () => {
+const EditPeliculas = () => {
+    //Variables usadas
     const [nombre, setNombre] = useState('')
     const [director, setDirector] = useState('')
     const [genero, setGenero] = useState('')
@@ -16,11 +17,12 @@ const EditProduct = () => {
     const [id_usuario, setId_usuario] = useState(1)
     const [usuario, setusuario] = useState("")
 
-
     const { id } = useParams()
 
+    //Proipiedad que nos permite la navegación
     const navigate = useNavigate()
 
+    //Funcion que usamos junto con la api para pode actualizar una peliculas utilizando su id
     const update = async (e) => {
         e.preventDefault()
         await axios.put(`${endpoint}${id}`, {
@@ -34,15 +36,18 @@ const EditProduct = () => {
         navigate('/peliculas')
     }
 
+    //Propiedad navbar
     const Mostrar = async () => {
         navigate(`/peliculas`)
     }
+    //Propiedad navbar
 
     const CerrarSesion = async () => {
         localStorage.clear()
         navigate(`/`)
     }
 
+    //Función que se ejecuta al entrar a la pantalla la cual obtenemos el id de la pelicula y seteamos los input con dichos valores, ademas de comprobar el login
     useEffect(() => {
         const getPeliculaById = async () => {
             const response = await axios.get(`${endpoint}${id}`)
@@ -58,6 +63,7 @@ const EditProduct = () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
+    //Comporbamos que un usuario haya iniciado sesión
     const comprobarLogin = async () => {
         if (!localStorage.getItem("usuario") && !localStorage.getItem("contrasena")) {
             navigate('/')
@@ -113,4 +119,4 @@ const EditProduct = () => {
     )
 }
 
-export default EditProduct
+export default EditPeliculas

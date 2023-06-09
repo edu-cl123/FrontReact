@@ -15,6 +15,8 @@ const EditProduct = () => {
     const [ano, setAno] = useState('')
     const [guion, setGuion] = useState('')
     const [id_usuario, setId_usuario] = useState(1)
+    const [usuario, setusuario] = useState("")
+
 
     const { id } = useParams()
 
@@ -34,6 +36,7 @@ const EditProduct = () => {
             setGuion(response.data.guion)
             setId_usuario(response.data.id_usuario)
         }
+        comprobarLogin()
         getPeliculaById()
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
@@ -47,8 +50,16 @@ const EditProduct = () => {
         navigate(`/`)
     }
 
+    const comprobarLogin = async () => {
+        if (!localStorage.getItem("usuario") && !localStorage.getItem("contrasena")) {
+            navigate('/')
+        } else {
+            setusuario(localStorage.getItem("usuario"))
+        }
+    }
+
     return (
-        <div   >
+        <div className="fondo" >
             <Navbar bg="dark" variant="dark">
                 <Navbar.Brand href="#home">Fimoteca</Navbar.Brand>
                 <Nav className="me-auto">
@@ -56,40 +67,32 @@ const EditProduct = () => {
                     <Nav.Link onClick={() => CerrarSesion()}>Cerrar sesión</Nav.Link>
                 </Nav>
             </Navbar>
+
             <div className="container">
                 <form onSubmit={inicio}>
                     <div className="row">
-                        <h4>Información peliculas</h4>
+                        <h4>Información pelÍcula</h4>
                         <div className="input-group ">
-                            <label> Nombre película: </label>
-
-                            <label> {nombre}</label>
+                            <input value={nombre} style={{ pointerEvents: "none" }}
+                                onChange={(e) => setNombre(e.target.value)} type="text" placeholder="Nombre" />
                         </div>
 
                         <div className="input-group ">
-                            <label> Director de la película: </label>
-
-                            <label> {director}</label>
-
+                            <input value={director} style={{ pointerEvents: "none" }}
+                                onChange={(e) => setDirector(e.target.value)} type="text" placeholder="Director" />
                         </div>
                         <div className="input-group">
-                            <label> Genero de la película: </label>
-
-                            <label> {genero}</label>
-
+                            <input value={genero} style={{ pointerEvents: "none" }}
+                                onChange={(e) => setGenero(e.target.value)} type="text" placeholder="Genero" />
                         </div>
                         <div className="input-group">
-                            <label>Año publicación de la película: </label>
-
-                            <label> {ano}</label>
-
+                            <input value={ano} style={{ pointerEvents: "none" }}
+                                onChange={(e) => setAno(e.target.value)} type="text" placeholder="Año de creación" />
                         </div>
                         <div className="input-group">
-                            <label> Guiónista de la película: </label>
-
-                            <label> {guion}</label>
+                            <input value={guion} style={{ pointerEvents: "none" }}
+                                onChange={(e) => setGuion(e.target.value)} type="text" placeholder="Guión" />
                         </div>
-
                         <div className='d-grid gap-2'>
                             <button type='submit' className='btn btn-primary btn-lg mt-2 mb-2 text-white'>Volver inicio</button>
 
@@ -97,6 +100,7 @@ const EditProduct = () => {
                     </div>
 
                 </form>
+
             </div>
 
         </div>

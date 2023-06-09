@@ -18,6 +18,8 @@ const CrearPeliculas = () => {
     const [ano, setAno] = useState('')
     const [guion, setGuion] = useState('')
     const [id_usuario, setId_usuario] = useState(1)
+    const [usuario, setusuario] = useState("")
+
 
     const navigate = useNavigate()
 
@@ -41,7 +43,9 @@ const CrearPeliculas = () => {
 
     useEffect(() => {
 
+        comprobarLogin()
         getidUser()
+
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
@@ -50,6 +54,14 @@ const CrearPeliculas = () => {
         const username = await axios.get(`${endpoint1}${user}`)
         console.log(username)
         setId_usuario(username.data[0].id)
+    }
+
+    const comprobarLogin = async () => {
+        if (!localStorage.getItem("usuario") && !localStorage.getItem("contrasena")) {
+            navigate('/')
+        } else {
+            setusuario(localStorage.getItem("usuario"))
+        }
     }
 
 

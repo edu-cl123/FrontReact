@@ -14,6 +14,8 @@ const EditProduct = () => {
     const [ano, setAno] = useState('')
     const [guion, setGuion] = useState('')
     const [id_usuario, setId_usuario] = useState(1)
+    const [usuario, setusuario] = useState("")
+
 
     const { id } = useParams()
 
@@ -52,11 +54,20 @@ const EditProduct = () => {
             setId_usuario(response.data.id_usuario)
         }
         getPeliculaById()
+        comprobarLogin()
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
+    const comprobarLogin = async () => {
+        if (!localStorage.getItem("usuario") && !localStorage.getItem("contrasena")) {
+            navigate('/')
+        } else {
+            setusuario(localStorage.getItem("usuario"))
+        }
+    }
+
     return (
-        <div   >
+        <div  className='fondo' >
             <Navbar bg="dark" variant="dark">
                 <Navbar.Brand href="#home">Fimoteca</Navbar.Brand>
                 <Nav className="me-auto">

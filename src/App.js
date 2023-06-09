@@ -8,6 +8,7 @@ import VerPeliculas from './components/VerPeliculas';
 import CrearPeliculas from './components/CrearPeliculas';
 import Login from './components/Login';
 import Register from './components/Register';
+import SinUsuario from  './components/SinUsuario';
 
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
           {<Route path='/create/:username' element={<CrearPeliculas />} />}
           {<Route path='/edit/:id' element={<EditarPeliculas />} />}
           {<Route path='/info/:id' element={<VerPeliculas />} />}
+          {<Route path='/peliculas/anonimo' element={<SinUsuario />} />}
 
         </Routes>
       </BrowserRouter>

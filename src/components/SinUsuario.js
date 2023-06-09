@@ -54,56 +54,19 @@ const MostrarPeliculas = () => {
 
         setPeliculas(resultadosBusqueda);
     }
+    //metodo de filtrado 2   
 
     const columns = [
         { field: 'nombre', headerName: 'Nombre', width: 130 },
         { field: 'director', headerName: 'Director', width: 130 },
-        { field: 'genero', headerName: 'Género', width: 130 },
+        { field: 'genero', headerName: 'Genero', width: 130 },
         { field: 'ano', headerName: 'Año', width: 130 },
         { field: 'guion', headerName: 'Guión', width: 130 },
-        {
-            field: 'acciones',
-            headerName: 'Acciones',
-            width: 350,
-            sortable: false,
-            disableClickEventBubbling: true,
-
-            renderCell: (params) => {
-                const info = (e) => {
-                    const currentRow = params.row;
-                    navigate(`/info/${currentRow.id}`)
-                };
-
-                const deletee = async (e) => {
-
-                    const currentRow = params.row;
-                    await axios.delete(`${endpoint}/pelicula/${currentRow.id}`)
-                    alert("Pelicula eliminada correctamente");
-                    getAllPeliculas()
-
-                };
-
-                const editarr = (e) => {
-                    const currentRow = params.row;
-                    navigate(`/edit/${currentRow.id}`)
-                };
-
-                return (
-                    <Stack direction="row" spacing={2}>
-                        <Button variant="outlined" color="error" size="small" onClick={info}>Ver</Button>
-                        <Button variant="outlined" color="warning" size="small" onClick={editarr}>Editar</Button>
-                        <Button variant="outlined" color="error" size="small" onClick={deletee}>Eliminar</Button>
-
-                    </Stack>
-                );
-            },
-        }
     ];
 
 
     useEffect(() => {
 
-        comprobarLogin()
         getAllPeliculas()
     }, [])
 
@@ -115,22 +78,6 @@ const MostrarPeliculas = () => {
 
     }
 
-    const comprobarLogin = async () => {
-        if (!localStorage.getItem("usuario") && !localStorage.getItem("contrasena")) {
-            navigate('/')
-        } else {
-            setusuario(localStorage.getItem("usuario"))
-        }
-    }
-
-
-    const crearPeliculas = async () => {
-        navigate(`/create/${usuario}`)
-    }
-
-    const Mostrar = async () => {
-        navigate(`/peliculas`)
-    }
 
     const CerrarSesion = async () => {
         localStorage.clear()
@@ -141,18 +88,11 @@ const MostrarPeliculas = () => {
             <Navbar bg="dark" variant="dark">
                 <Navbar.Brand href="#home">Fimoteca</Navbar.Brand>
                 <Nav className="me-auto">
-                    <Nav.Link onClick={() => crearPeliculas()}>Crear película</Nav.Link>
-                    <Nav.Link onClick={() => Mostrar()}>Inicio</Nav.Link>
                     <Nav.Link onClick={() => CerrarSesion()}>Cerrar sesión</Nav.Link>
                 </Nav>
             </Navbar>
 
-
-            <div className='d-grid gap-2'>
-                <button style={{ width: '75%', margin: "0 auto", }} onClick={() => crearPeliculas()} className='btn btn-success btn-lg mt-2 mb-2 text-white'>Añadir peliculas</button>
-            </div>
-
-            <Card sx={{ margin: "0 auto", width: "75%", minWidth: 275 }}>
+            <Card sx={{ margin: "0 auto", width: "75%", minWidth: 275,marginTop:"50px" }}>
                 <div class="row">
                     <div class="col-sm">
                         <input style={{ width: "70%", margin: "0 auto", marginTop: "20px" }}

@@ -16,6 +16,11 @@ const EditProduct = () => {
     const registro = async () => {
         navigate('/registro')
     }
+
+    const invitado = async () => {
+        navigate('/peliculas/anonimo')
+    }
+
     const login = async (e) => {
         e.preventDefault()
         if (usuario != "" && contrasena != "") {
@@ -26,6 +31,8 @@ const EditProduct = () => {
                 localStorage.setItem("usuario",usuario)
 
                 navigate('/peliculas')
+            }else{
+                alert("Usuario o contraseña incorrecto")
             }
 
         }
@@ -47,6 +54,8 @@ const EditProduct = () => {
                 <button onClick={login} type="text" className="submit">Iniciar sesión</button>
 
                 <button onClick={registro} type="text" className="submit">Registrar cuenta</button>
+
+                <button onClick={invitado} type="text" className="submit btn btn-warning text-white">Usuario invitado</button>
 
 
             </div>

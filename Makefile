@@ -4,11 +4,11 @@ environment := $(env)
 
 install: build tag_image push_dockerhub
 
-build:
+up:
 	@docker build -t frontend .
 
 tag_image:
-	@docker tag frontend juanfran21/iestablero:latest
+	@docker tag frontend juanfr21/iestablero:latest
 
 push_dockerhub:
-	@docker push juanfran21/iestablero:latest
+	@docker push juanfa21/iestablero:latest
